@@ -41,6 +41,12 @@ public class SampleController {
         return "home";
     }
 
+    @RequestMapping("tabExcel")
+    public String loadTabExcel() {
+        return "excel";
+    }
+
+
     @RequestMapping("some")
     public String loadSome(Model m) {
         m.addAttribute("name", "CodeTutr");

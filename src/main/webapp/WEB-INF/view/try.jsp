@@ -1,8 +1,25 @@
 <!doctype html>
 <head>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     <script src="http://malsup.github.com/jquery.form.js"></script>
-    <script src="/ExcelPoiSample/js/fileUpload.js"></script>
+    <link href="http://cdn.sencha.com/ext/gpl/4.2.0/resources/css/ext-all.css" rel="stylesheet"/>
+    <%--    <script src="http://cdn.sencha.com/ext/gpl/4.2.0/ext-all.js"></script>--%>
+    <script src="${pageContext.request.contextPath}/js/fileUpload.js"></script>
+    <script>
+        $(function () {
+            $("#tabs").tabs({
+                beforeLoad: function (event, ui) {
+                    ui.jqXHR.error(function () {
+                        ui.panel.html(
+                                "Couldn't load this tab. We'll try to fix this as soon as possible. " +
+                                        "If this wouldn't be a demo.");
+                    });
+                }
+            });
+        });
+    </script>
     <style>
         form {
             display: block;
@@ -35,7 +52,8 @@
         }
     </style>
 </head>
-<body>
+
+<body><%-- onload="doOnLoad();--%>
 <h1>Ajax File Upload Demo</h1>
 
 <form id="myForm" action="uploadExcel" method="post" enctype="multipart/form-data">
@@ -51,25 +69,23 @@
 
 <div id="message"></div>
 
-<script src="/ExcelPoiSample/js/dhtmlxTabbar/codebase/dhtmlXTabbar.js"></script>
-<script src="/ExcelPoiSample/js/dhtmlxTabbar/codebase/dhtmlXTabbar_start.js"></script>
-
-<div id="a_tabbar" class="dhtmlxTabBar" imgpath="/ExcelPoiSample/js/dhtmlxTabbar/codebase/imgs/"
-     style="width:390; height:390;" skinColors="#FCFBFC,#F4F3EE">
-    <div id="a1" name="Tab 1">Content 1</div>
-    <div id="a2" name="Tab 2">Content 2</div>
-    <div id="a3" name="Tab 3">Content 3</div>
+<div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">Preloaded</a></li>
+        <li><a href="tabExcel">Tab 1</a></li>
+        <li><a href="tabExcel">Tab 2</a></li>
+        <li><a href="home">Tab 3 (slow)</a></li>
+        <li><a href="ajax/content4-broken.php">Tab 4 (broken)</a></li>
+    </ul>
+    <div id="tabs-1">
+        <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi
+            sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus
+            auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci.
+            Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius
+            sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+    </div>
 </div>
 
-<div id="a_tabbar2" style="width:400;height:100"></div>
-<script>
-    tabbar = new dhtmlXTabBar("a_tabbar2");
-    tabbar.setImagePath("/ExcelPoiSample/js/dhtmlxTabbar/codebase/imgs/");
-
-    tabbar.addTab("a1", "Tab 1-1", "100px");
-    tabbar.addTab("a2", "Tab 1-2", "100px");
-    tabbar.addTab("a3", "Tab 1-3", "100px");
-</script>
 
 </body>
 
