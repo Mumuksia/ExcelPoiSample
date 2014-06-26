@@ -2,6 +2,7 @@
 <head>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
     <script src="http://malsup.github.com/jquery.form.js"></script>
+    <script src="/ExcelPoiSample/js/fileUpload.js"></script>
     <style>
         form {
             display: block;
@@ -50,42 +51,26 @@
 
 <div id="message"></div>
 
+<script src="/ExcelPoiSample/js/dhtmlxTabbar/codebase/dhtmlXTabbar.js"></script>
+<script src="/ExcelPoiSample/js/dhtmlxTabbar/codebase/dhtmlXTabbar_start.js"></script>
+
+<div id="a_tabbar" class="dhtmlxTabBar" imgpath="/ExcelPoiSample/js/dhtmlxTabbar/codebase/imgs/"
+     style="width:390; height:390;" skinColors="#FCFBFC,#F4F3EE">
+    <div id="a1" name="Tab 1">Content 1</div>
+    <div id="a2" name="Tab 2">Content 2</div>
+    <div id="a3" name="Tab 3">Content 3</div>
+</div>
+
+<div id="a_tabbar2" style="width:400;height:100"></div>
 <script>
-    $(document).ready(function () {
+    tabbar = new dhtmlXTabBar("a_tabbar2");
+    tabbar.setImagePath("/ExcelPoiSample/js/dhtmlxTabbar/codebase/imgs/");
 
-        var options = {
-            beforeSend: function () {
-                $("#progress").show();
-                //clear everything
-                $("#bar").width('0%');
-                $("#message").html("");
-                $("#percent").html("0%");
-            },
-            uploadProgress: function (event, position, total, percentComplete) {
-                $("#bar").width(percentComplete + '%');
-                $("#percent").html(percentComplete + '%');
-
-            },
-            success: function () {
-                $("#bar").width('100%');
-                $("#percent").html('100%');
-
-            },
-            complete: function (response) {
-                $("#message").html("<font color='green'>" + response.responseText + "</font>");
-            },
-            error: function () {
-                $("#message").html("<font color='red'> ERROR: unable to upload files</font>");
-
-            }
-
-        };
-
-        $("#myForm").ajaxForm(options);
-
-    });
-
+    tabbar.addTab("a1", "Tab 1-1", "100px");
+    tabbar.addTab("a2", "Tab 1-2", "100px");
+    tabbar.addTab("a3", "Tab 1-3", "100px");
 </script>
+
 </body>
 
 </html>

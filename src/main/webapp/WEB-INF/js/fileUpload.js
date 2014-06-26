@@ -1,31 +1,34 @@
-$(function () {
+$(document).ready(function () {
 
-    $('#upldBtn').click(function () {
-        var contextPath = 'ExcelPoiSample';
-        var servletName = 'uploadExcel';
-        var iframe = $('<iframe name="postiframe" id="postiframe" style="display: none" />');
-        $("body").append(iframe);
+    var options = {
+        beforeSend: function () {
+            $("#progress").show();
+            //clear everything
+            $("#bar").width('0%');
+            $("#message").html("");
+            $("#percent").html("0%");
+        },
+        uploadProgress: function (event, position, total, percentComplete) {
+            $("#bar").width(percentComplete + '%');
+            $("#percent").html(percentComplete + '%');
 
-        $("form#yourform").attr('action', contextPath + servletName);
-        $("form#yourform").attr('enctype', "multipart/form-data");
-        $("form#yourform").attr("target", "postiframe");
-        $("form#yourform").attr("file", $('#file').val());
+        },
+        success: function () {
+            $("#bar").width('100%');
+            $("#percent").html('100%');
 
-        $('yourform').submit(); //upload button
-        $("#postiframe").load(function () {
-            iframeContents = $("#postiframe")[0].contentWindow.document.body.innerHTML;
-            $("#textarea").html(iframeContents);
-            $.ajax({
-                type: "GET",
-                url: contextPath + servletName,
-                data: "action=download",
-                async: false,
-                dataType: "text",
-                success: function (result) {
-                    //do something
-                }
-            });
-        })
-    });
+        },
+        complete: function (response) {
+            $("#message").html("<font color='green'>" + response.responseText + "</font>");
+        },
+        error: function () {
+            $("#message").html("<font color='red'> ERROR: unable to upload files</font>");
+
+        }
+
+    };
+
+    $("#myForm").ajaxForm(options);
+
 });
 //});
